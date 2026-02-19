@@ -36,7 +36,7 @@ namespace EgmCore.Services
             DateTime localTime = TimeZoneInfo.ConvertTime(DateTime.Now, _currentTimeZone);
             // Convert from UTC to the configured timezone using DateTimeOffset to preserve the correct offset
             var offsetTime = TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, _currentTimeZone);
-            string timestamp = offsetTime.ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz");
+            string timestamp = offsetTime.ToString("yyyy-MM-ddTHH:mm:ss.ffzzz");
             string formattedLog = $"{timestamp} | {message}";
 
             lock (_lock)

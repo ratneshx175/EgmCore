@@ -76,10 +76,33 @@ static async Task RunCli(IServiceProvider sp)
                     }
                     break;
                 case "update":
-                    if (input.Length > 2)
                     {
-                        Console.WriteLine("OK: update started");
-                        await update.InstallUpdateAsync(input[2]);
+                        // Support both: `update package.zip` and `update --package package.zip`
+                        string? package = null;
+
+                        if (input.Length > 2 && input[1] == "--package")
+                        {
+                            package = string.Join(' ', input.Skip(2));
+                        }
+                        else if (input.Length > 1)
+                        {
+                            package = string.Join(' ', input.Skip(1));
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(package))
+                        {
+                            // Trim optional surrounding quotes
+                            package = package.Trim();
+                            if (package.StartsWith("\"") && package.EndsWith("\""))
+                                package = package[1..^1];
+
+                            Console.WriteLine("OK: update started");
+                            await update.InstallUpdateAsync(package);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Usage: update --package <name>  or  update <name>");
+                        }
                     }
                     break;
                 case "device":
