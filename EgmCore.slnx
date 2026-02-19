@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="EgmCore.Tests/EgmCore.Tests.csproj" Id="d927cfc2-2964-467e-919c-f9ed9fc48e72" />
   <Project Path="EgmCore/EgmCore.csproj" />
 </Solution>
